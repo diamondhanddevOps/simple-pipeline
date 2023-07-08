@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the source code from version control system
+                // Adjust the repository URL and credentials as needed
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/example/repo.git']]])
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Run Maven build
+                // Adjust the Maven goals and options as per your project
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Run tests using Maven
+                sh 'mvn test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Perform deployment steps if needed
+                // This can be adjusted based on your deployment requirements
+            }
+        }
+    }
+}
